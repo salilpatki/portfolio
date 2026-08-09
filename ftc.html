@@ -17,59 +17,154 @@
   </nav>
 
   <div class="project-hero">
-    <h1>FIRST Tech Challenge Robot</h1>
-    <p class="tags">CAD · CNC · FDM · Waterjet · Team Lead</p>
-    <p class="result-badge">🤖 Custom drivetrain &amp; scoring mechanisms · $15k raised</p>
+    <h1>FIRST Tech Challenge — Regression Robotics</h1>
+    <p class="tags">CAD · CNC · Waterjet · Odometry · PID Control · Team Lead</p>
+    <p class="result-badge">🤖 Iowa Qualifier Winner · $15k Raised · Turret-Based Scoring</p>
   </div>
 
   <article class="project-detail">
 
+    <!-- Quick stats bar -->
+    <section>
+      <div class="stat-bar">
+        <div class="stat"><span class="stat-num">$15,000+</span><span class="stat-label">Raised in Sponsorships</span></div>
+        <div class="stat"><span class="stat-num">1st</span><span class="stat-label">Iowa Qualifier Win</span></div>
+        <div class="stat"><span class="stat-num">3</span><span class="stat-label">Odometry Pods</span></div>
+        <div class="stat"><span class="stat-num">100+</span><span class="stat-label">Teams Helped</span></div>
+      </div>
+    </section>
+
     <section>
       <h2>Overview</h2>
       <p>
-        As design and team lead, I directed the full mechanical development of our
-        competition robot — from custom drivetrain to scoring mechanisms — while managing
-        team finances and fundraising.
+        As part of Regression Robotics — a rookie FTC team — I helped lead the full mechanical and
+        strategic development of a competition robot built around a turret-based scoring system,
+        precise odometry, and a fast, reliable scoring cycle. We <strong>won our first Iowa
+        qualifier</strong>, raised <strong>over $15,000</strong> in sponsorships, and ran an extensive
+        outreach program supporting the broader FIRST community.
       </p>
       <img src="images/ftc-robot.jpg" alt="Completed FTC robot" class="full-img">
     </section>
 
     <section>
-      <h2>My Contributions</h2>
-
-      <h3>Custom Omnidirectional Drivetrain</h3>
+      <h2>Design Philosophy</h2>
       <p>
-        Designed a custom omni drivetrain enabling full holonomic movement, giving the
-        driver precise multi-axis control and rapid repositioning during matches.
-      </p>
-      <img src="images/ftc-drivetrain.jpg" alt="Omni drivetrain" class="full-img">
-
-      <h3>Indexer Subsystem</h3>
-      <p>
-        Built an indexer to reliably feed and sequence game elements into the shooter,
-        preventing jams and improving cycle consistency.
-      </p>
-
-      <h3>Shooter Mechanism</h3>
-      <p>
-        Engineered a shooter tuned for consistent launch velocity and accuracy across
-        varying field positions.
-      </p>
-
-      <h3>Manufacturing</h3>
-      <p>
-        Integrated CNC-machined, waterjet-cut, and 3D-printed components into serviceable
-        subsystems, iterating through multiple prototypes.
+        We applied a structured design process: game analysis and strategy, brainstorming with
+        decision matrices, rapid prototyping, detailed CAD, fabrication and integration, modular
+        programming, and continuous data-driven iteration. Early on we aimed for complex mechanisms to
+        maximize scoring, but testing revealed that <strong>simpler, more robust designs consistently
+        performed better under match pressure</strong> — so we prioritized reliability, ease of
+        maintenance, and cycle consistency.
       </p>
     </section>
 
     <section>
-      <h2>Leadership &amp; Impact</h2>
+      <h2>Scoring Subsystems</h2>
+
+      <h3>Spindexer</h3>
+      <p>
+        The primary indexing system organizes game elements and advances them one at a time, preventing
+        jams and double-feeding. I tuned spacing and rotation speed for smooth transitions under
+        continuous intake.
+      </p>
+
+      <h3>Serializer</h3>
+      <p>
+        Feeds elements into the shooter with consistent entry angle and spacing. Refined geometry and
+        timing minimize friction and eliminate misalignment during rapid cycling — directly improving
+        shot consistency.
+      </p>
+
+      <h3>Turret</h3>
+      <p>
+        Provides horizontal aiming flexibility so the robot can score from multiple field positions
+        without repositioning the drivetrain. We prioritized structural rigidity and feedback-based
+        rotational control to hold alignment while the robot is in motion, reducing driver correction time.
+      </p>
+
+      <h3>Shooter</h3>
+      <p>
+        Tuned for repeatable velocity and trajectory consistency. We iterated on flywheel speed and
+        compression geometry to balance range and accuracy, prioritizing vibration reduction to
+        maintain precision over extended match cycles.
+      </p>
+      <img src="images/ftc-subsystems.jpg" alt="Robot scoring subsystems" class="full-img">
+    </section>
+
+    <section>
+      <h2>Odometry &amp; Autonomous Navigation</h2>
+      <p>
+        For precise autonomous movement, the robot uses <strong>three dead-wheel odometry pods</strong>
+        — two parallel and one perpendicular with an offset — to track position independently of wheel
+        slip. By calibrating encoder ticks per revolution against wheel circumference, we convert target
+        distances into tick counts:
+      </p>
+      <pre class="code-block">distance = (encoder_ticks / ticks_per_revolution) × wheel_circumference
+wheel_circumference = π × wheel_diameter
+
+Δx = r × ((ΔE_L + ΔE_R) / 2)
+Δy = r × ΔE_S
+Δθ = (r / b) × (ΔE_R − ΔE_L)</pre>
+      <p>
+        We tune acceleration, deceleration, and lateral/angular/forward motion with a
+        <strong>PID controller</strong>, and combine odometry with the PedroPathing path-planning
+        library for consistent autonomous routines. Each movement is validated individually before
+        being combined into full autonomous cycles.
+      </p>
+    </section>
+
+    <section>
+      <h2>Software Architecture</h2>
+      <p>
+        Our codebase uses a <strong>modular structure</strong> that separates drivetrain, mechanisms,
+        sensors, and autonomous routines into organized subsystems, improving readability, debugging
+        efficiency, and scalability.
+      </p>
       <ul>
-        <li>Led a multidisciplinary team through design reviews and build cycles</li>
-        <li>Managed finances and <strong>raised $15,000</strong> for robotics &amp; STEM outreach</li>
+        <li>Driver-assist features including motion smoothing and preset scoring positions to reduce driver workload</li>
+        <li>PID-controlled movement for accurate turns and consistent scoring</li>
+        <li>Incremental, data-driven autonomous development with version control and structured testing</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Leadership, Finances &amp; Outreach</h2>
+      <p>
+        Beyond engineering, I helped lead the team's operations and community impact:
+      </p>
+      <ul>
+        <li>Raised <strong>over $15,000</strong> from sponsors including PTC Onshape, The Hartford, Gene Haas Foundation, Polymaker, IEEE, and Mitsubishi — maintaining a $2,000 reserve at all times</li>
+        <li>Founded an alliance with six teams across multiple states</li>
+        <li>Built a grant resource list accessed <strong>2,500+ times</strong> and helped 114+ FTC/FLL teams with fundraising</li>
+        <li>Mentored 9+ teams and <strong>saved two dying programs</strong> (teams 26936 and 5072) that were about to fold</li>
+        <li>Ran programming workshops (modular code, PID fundamentals, autonomous testing) and mock judging sessions for younger teams</li>
+      </ul>
+      <img src="images/ftc-outreach.jpg" alt="Team outreach and mentorship" class="full-img">
+    </section>
+
+    <section>
+      <h2>Results</h2>
+      <ul>
+        <li><strong>Won our first Iowa qualifier</strong> as a rookie team</li>
+        <li>Built a consistent, turret-based scoring cycle with reliable autonomous navigation</li>
+        <li>Established a sustainable, well-funded program and a lasting community impact</li>
       </ul>
     </section>
 
     <section>
       <h2>What I Learned</h2>
+      <p>
+        The biggest lesson was that <strong>strong engineering comes from iteration, simplicity, and
+        communication</strong>. Simpler, robust designs beat ambitious but fragile ones under match
+        pressure. Rapid prototyping and objective data — cycle times, autonomous accuracy, failure
+        rates — guided better decisions than intuition alone. Clear coordination between the mechanical
+        and programming teams prevented costly redesigns, and I learned to treat setbacks as a normal,
+        valuable part of the engineering process.
+      </p>
+    </section>
+
+  </article>
+
+  <footer><p>&copy; 2026 Salil Patki</p></footer>
+</body>
+</html>
