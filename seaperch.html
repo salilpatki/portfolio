@@ -38,11 +38,11 @@
       <h2>Overview</h2>
       <p>
         For the 2026 SeaPerch competition, our team ("Subatomic Submarines") designed a
-        torpedo-inspired, three-section modular ROV optimized for speed, stability, and precision.
-        Using the Engineering Design Process, we iteratively designed, tested, and refined each
-        subsystem based on measured data — with two of our final design choices actually
-        <em>contradicting</em> our initial hypotheses. The complete vehicle cost just
-        <strong>$124.78</strong>.
+        torpedo-inspired, three-section modular ROV optimized for speed, stability, and precision
+        across the Mission and Obstacle Courses. Using the Engineering Design Process, we iteratively
+        designed, tested, and refined each subsystem based on measured data — with two of our final
+        design choices actually <em>contradicting</em> our initial hypotheses. The complete vehicle
+        cost just <strong>$124.78</strong>.
       </p>
       <img src="images/rov-full.jpg" alt="Completed SeaPerch ROV" class="full-img">
     </section>
@@ -50,10 +50,20 @@
     <section>
       <h2>The Challenge</h2>
       <p>
-        The Obstacle Course demanded rapid navigation through five angled 18" hoops, while the
-        Mission Course required precise manipulation to complete four tasks worth 110 points —
-        repairing a bridge, surveying a dam, clearing debris, and sampling water. Our design had to
-        balance <strong>speed, maneuverability, and stability</strong> at once.
+        The Obstacle Course tests speed: the ROV starts at the surface, navigates through five
+        18" hoops set at varying angles, resurfaces, and returns in reverse — all against the clock.
+        The Mission Course tests precision manipulation across four scored tasks worth
+        <strong>110 points total</strong>:
+      </p>
+      <ul>
+        <li><strong>Task 1 — Bridge (26 pts):</strong> retrieve red float and hook to rear right pillar, slide cover pipe to repair the support beam, release green float from front left pillar</li>
+        <li><strong>Task 2 — Dam (24 pts):</strong> remove plug from the surface vessel, insert it into the dam wall, rotate the flood gate cover</li>
+        <li><strong>Task 3 — Debris (38 pts):</strong> relocate marine life, lift heavy submerged debris and place it on the surface vessel hook</li>
+        <li><strong>Task 4 — Sample (12 pts):</strong> retrieve the water sampler and place it on the surface vessel hook</li>
+      </ul>
+      <p>
+        Bonus points are awarded for finishing under 6 minutes (+5) and under 4 minutes (+10). Our
+        design had to balance <strong>speed, maneuverability, and stability</strong> simultaneously.
       </p>
     </section>
 
@@ -61,9 +71,11 @@
       <h2>Modular Torpedo Architecture</h2>
       <p>
         We chose a three-section modular body sealed with O-rings, letting us develop and test each
-        subsystem independently and make fast field repairs. The front houses the camera and nose
-        cone, the center holds the Venturi propulsion junction, and the rear contains the electronics.
-        The torpedo form minimizes hydrodynamic drag while keeping the build compact and robust.
+        subsystem independently and make fast field repairs during limited pool time. The front houses
+        the camera and nose cone, the center holds the Venturi propulsion junction, and the rear
+        contains the electronics enclosure. The torpedo form minimizes hydrodynamic drag while keeping
+        the build compact and robust. The entire body is 3D printed in <strong>PLA (594.56 g total)</strong>
+        for a strong, lightweight structure.
       </p>
       <img src="images/rov-full.jpg" alt="Three-section modular ROV" class="full-img">
     </section>
@@ -71,40 +83,57 @@
     <section>
       <h2>Hydrodynamic Nose Cone — CFD Study</h2>
       <p>
-        Using <strong>OpenFOAM CFD simulations</strong>, I compared four nose geometries under
-        identical conditions: flat (Cd ≈ 1.10), cone (Cd ≈ 0.50), ogive (Cd ≈ 0.42), and hemisphere
+        Using <strong>OpenFOAM CFD simulations</strong> under identical conditions, I compared four
+        nose geometries: flat (Cd ≈ 1.10), cone (Cd ≈ 0.50), ogive (Cd ≈ 0.42), and hemisphere
         (Cd ≈ 0.35). We hypothesized the sharper ogive or cone would win — but the
-        <strong>hemisphere achieved the lowest drag</strong>, ~17% below the ogive and ~68% below the flat design.
+        <strong>hemisphere achieved the lowest drag</strong>, roughly 17% below the ogive and 68% below the flat design.
       </p>
       <p>
-        At the low Reynolds numbers of our operating regime, maintaining attached flow (Coandă effect)
-        matters more than a sharp frontal profile. We paired the winning shape with a clear resin
-        hemispherical dome housing a forward-facing fishing camera — the curved dome eliminates water
-        refraction distortion, giving the pilot accurate depth perception for precise object alignment.
+        At the low Reynolds numbers of our operating regime, maintaining attached flow (the Coandă
+        effect) matters more than a sharp frontal profile — which is why the smoother hemisphere
+        outperformed sharper geometries. We paired the winning shape with a clear resin hemispherical
+        dome housing a forward-facing fishing camera; the curved dome eliminates water refraction
+        distortion, giving the pilot accurate depth perception for precise object alignment during
+        mission tasks. Trusting the data over our intuition was the right call.
       </p>
-      <img src="images/rov-cfd.jpg" alt="OpenFOAM CFD drag comparison" class="full-img">
+      <img src="images/rov-cfd.jpg" alt="OpenFOAM CFD drag comparison of nose geometries" class="full-img">
     </section>
 
     <section>
       <h2>Venturi Tube Propulsion</h2>
       <p>
         Instead of exposed propellers, we developed an integrated <strong>Venturi propulsion system</strong>
-        that accelerates water through a converging inlet, narrow throat (housing the motor/propeller),
-        and expanding diffuser. Two horizontal tubes provide forward/reverse thrust; one vertical tube
-        handles depth control.
+        that accelerates water through a converging inlet, a narrow throat (housing the motor and
+        propeller), and an expanding diffuser that recovers pressure and minimizes exit turbulence.
+        A streamlined nose spike at the inlet guides water in smoothly. Two horizontal tubes provide
+        forward and reverse thrust; one vertical tube handles depth control.
       </p>
+
+      <h3>Optimized Geometry</h3>
+      <ul>
+        <li>Overall length: <strong>4.88 in (≈124 mm)</strong></li>
+        <li>Inlet rounded radius: 0.3 in · Outlet rounded radius: 0.05 in</li>
+        <li>Segmented lengths: 2.25 in inlet, 1 in throat, 1 in diffuser start</li>
+      </ul>
+
+      <h3>The Physics</h3>
       <p>
         The design applies the <strong>continuity equation</strong> (A₁v₁ = A₂v₂) and
-        <strong>Bernoulli's principle</strong>. With a 2.0" inlet narrowing to a 1.0" throat, inlet
-        flow at 1.8 m/s theoretically accelerates to ~7.2 m/s, predicting ~19.7 N of thrust. Real-world
-        friction, turbulence, and propeller efficiency bring measured peak thrust to
-        <strong>4.5 N at 9820 RPM</strong> — the gap itself was a valuable lesson in theoretical vs. actual performance.
+        <strong>Bernoulli's principle</strong>. With a 2.0" inlet (A₁ ≈ 0.00202 m²) narrowing to a
+        1.0" throat (A₂ ≈ 0.000506 m²), inlet flow measured at 1.8 m/s theoretically accelerates to
+        about 7.2 m/s, predicting roughly 19.7 N of thrust. Real-world friction, turbulence, and
+        propeller efficiency bring the measured peak to <strong>4.5 N at 9820 RPM</strong> — and
+        understanding that gap between theory and reality was one of the most valuable parts of the project.
       </p>
+
+      <h3>Testing</h3>
       <p>
-        I force-tested four Venturi geometries in water against a bare-motor control; the optimized
-        4.88" design (Tube D) won, ~4.7% above the next best. The small margin revealed diminishing returns.
+        I force-tested four Venturi geometries in water against a bare-motor control by suspending
+        each on a force sensor. The optimized 4.88" design (Tube D) produced the highest average
+        thrust, ~4.7% above the next best. The small margin between the top designs revealed
+        diminishing returns, confirming we'd reached a practical optimization limit.
       </p>
-      <img src="images/rov-venturi.jpg" alt="Venturi tube thrust testing" class="full-img">
+      <img src="images/rov-venturi.jpg" alt="Venturi tube thrust testing setup" class="full-img">
     </section>
 
     <section>
@@ -112,26 +141,33 @@
       <p>
         The ROV runs on an <strong>Arduino Uno with an Ethernet Shield</strong> housed in a custom
         waterproof enclosure. Two <strong>L298N dual motor drivers</strong> control the three thrusters,
-        converting the Arduino's digital and PWM signals into the correct voltage and direction.
+        converting the Arduino's digital direction signals and PWM outputs into the correct voltage and
+        direction for each motor.
       </p>
       <ul>
-        <li>Two analog joysticks independently drive the horizontal thrusters; two push buttons control the vertical thruster</li>
-        <li>PWM on the L298N enable pins gives smooth speed control</li>
-        <li>±10 joystick dead zones prevent jitter when sticks are centered</li>
+        <li>Two analog joysticks independently drive the two horizontal thrusters</li>
+        <li>Two push buttons control the vertical thruster (up/down; both released = stopped)</li>
+        <li>PWM on the L298N enable pins provides smooth speed control</li>
+        <li>±10 joystick dead zones prevent jitter when the sticks are centered</li>
         <li>12V power delivered via <strong>XT30 connectors</strong> for safe, high-current connections</li>
       </ul>
+      <p>
+        Wiring is color-coded for maintainability: black (GND), white (5V), red (12V), and
+        yellow/blue/green for signal lines.
+      </p>
       <img src="images/rov-electronics.jpg" alt="ROV electronics and wiring" class="full-img">
     </section>
 
     <section>
       <h2>Mission Hook — One Tool, All Four Tasks</h2>
       <p>
-        Rather than swapping tools, we designed a single <strong>double-edge hook</strong>: the top edge
-        hooks and lifts, the bottom edge pulls and drags. This one tool completes all four mission tasks —
-        retrieving floats, sliding the repair pipe, inserting the dam plug, rotating the flood gate, and
-        transporting debris — with no changes. The entire body is 3D printed in <strong>PLA (594.56 g total)</strong>
-        for a strong, lightweight structure.
+        Rather than swapping tools mid-run, we designed a single <strong>double-edge hook</strong>:
+        the top edge hooks and lifts objects, while the bottom edge pulls and drags. This one tool
+        completes all four mission tasks — grabbing and transporting floats, sliding the repair pipe,
+        inserting the dam plug, rotating the flood gate, and lifting debris — with no changes,
+        maximizing versatility and speed.
       </p>
+      <img src="images/rov-hook.jpg" alt="Double-edge mission hook" class="full-img">
     </section>
 
     <section>
@@ -140,7 +176,7 @@
         <li>Ranked <strong>4th out of 9,000+ teams worldwide</strong></li>
         <li>Won the <strong>Innovation Award</strong> for best ROV design</li>
         <li>Peak thrust of <strong>4.5 N @ 9820 RPM</strong>, validated by force-sensor testing</li>
-        <li>Complete build for just <strong>$124.78</strong></li>
+        <li>Complete, competition-ready build for just <strong>$124.78</strong></li>
       </ul>
     </section>
 
@@ -148,11 +184,13 @@
       <h2>What I Learned</h2>
       <p>
         The strongest lesson was <strong>data-driven decision-making</strong> — both final choices
-        (Venturi Tube D and the hemispherical nose) contradicted our hypotheses, and trusting the data
-        produced a better vehicle. Comparing my ~19.7 N theoretical thrust to the 4.5 N measured value
-        also gave me real intuition for how friction, turbulence, and propeller efficiency erode ideal
-        performance. Next steps: smoothing internal Venturi surfaces to cut turbulence and adding sensor
-        feedback for partial automation.
+        (Venturi Tube D and the hemispherical nose) contradicted our hypotheses, and trusting the
+        measured data produced a better vehicle. Comparing the ~19.7 N theoretical thrust to the 4.5 N
+        measured value gave me real intuition for how friction, turbulence, and propeller efficiency
+        erode ideal performance. I also learned that optimizing subsystems in isolation isn't enough:
+        small changes in weight distribution and propulsion alignment had outsized effects on overall
+        stability, reinforcing a systems-level mindset. Next steps would be smoothing internal Venturi
+        surfaces to reduce turbulence and adding sensor feedback for partial automation.
       </p>
     </section>
 
