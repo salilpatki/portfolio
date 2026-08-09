@@ -18,7 +18,7 @@
 
   <div class="project-hero">
     <h1>SeaPerch Underwater ROV</h1>
-    <p class="tags">CAD · FDM · SLA · CFD (OpenFOAM) · Systems Design</p>
+    <p class="tags">CAD · CFD (OpenFOAM) · Venturi Propulsion · 3D Printing · Systems Design</p>
     <p class="result-badge">🏆 4th of 9,000+ teams worldwide · Innovation Award</p>
   </div>
 
@@ -27,10 +27,12 @@
     <section>
       <h2>Overview</h2>
       <p>
-        The SeaPerch ROV is a fully custom underwater remotely operated vehicle designed
-        for a global competition. I led the mechanical design and hydrodynamic optimization,
-        engineering the buoyancy, propulsion, and vision systems from concept to a
-        competition-winning build.
+        For the 2026 SeaPerch competition, our team ("Subatomic Submarines") designed a
+        torpedo-inspired, submarine-style ROV optimized for speed, stability, and precision
+        across the Mission and Obstacle Courses. I contributed to the mechanical design and
+        hydrodynamic optimization using the Engineering Design Process — iteratively designing,
+        testing, and refining each subsystem based on measured data. The final build cost just
+        <strong>$124.78</strong>.
       </p>
       <img src="images/rov-full.jpg" alt="Completed SeaPerch ROV" class="full-img">
     </section>
@@ -38,41 +40,69 @@
     <section>
       <h2>The Challenge</h2>
       <p>
-        The ROV needed to be precisely maneuverable underwater while maintaining stable
-        depth and completing navigation tasks — all within strict size and material
-        constraints. The key engineering problems: achieving neutral buoyancy, minimizing
-        drag, and generating efficient thrust.
+        The Obstacle Course demanded rapid navigation through five angled 18" hoops, while the
+        Mission Course required precise manipulation of objects — repairing a bridge, surveying
+        a dam, clearing debris, and sampling water. This meant balancing three often-conflicting
+        goals: <strong>speed, maneuverability, and stability</strong>, all within strict size and
+        material constraints.
       </p>
     </section>
 
     <section>
-      <h2>My Contributions</h2>
-
-      <h3>Ballasting System</h3>
+      <h2>Modular Torpedo Architecture</h2>
       <p>
-        Designed a custom ballasting system to achieve neutral buoyancy and stable depth
-        control, balancing displacement against component weight through iterative testing.
+        We chose a three-section modular body sealed with O-rings and bolts, letting us develop
+        and test each subsystem independently and disassemble quickly during limited pool time.
+        The front houses the camera and nose cone, the center holds the Venturi propulsion system,
+        and the rear contains the electronics, linear actuator, and stabilization components.
       </p>
-      <img src="images/rov-ballast.jpg" alt="Ballasting system" class="full-img">
+      <img src="images/rov-full.jpg" alt="Three-section modular ROV" class="full-img">
+    </section>
 
-      <h3>Venturi-Effect Jet Propulsion</h3>
+    <section>
+      <h2>Hydrodynamic Nose Cone — CFD Study</h2>
       <p>
-        Engineered a venturi-based propulsion approach to improve thrust efficiency and
-        maneuverability compared to standard thruster layouts.
+        Using <strong>OpenFOAM CFD simulations</strong>, I compared four nose geometries under
+        identical conditions: flat (Cd ≈ 1.10), cone (Cd ≈ 0.50), ogive (Cd ≈ 0.42), and
+        hemisphere (Cd ≈ 0.35). We hypothesized the sharper ogive or cone would win — but the
+        <strong>hemisphere achieved the lowest drag</strong>, ~17% below the ogive and ~68% below
+        the flat design.
       </p>
+      <p>
+        At the low Reynolds numbers of our operating regime, maintaining attached flow (Coandă
+        effect) matters more than minimizing frontal sharpness. This let us keep flow attached and
+        reduce separation. We paired it with a clear resin hemispherical nose housing an internal
+        camera, which also reduced refraction and preserved the streamlined profile. A great lesson
+        in trusting data over intuition.
+      </p>
+      <img src="images/rov-cfd.jpg" alt="OpenFOAM CFD drag comparison" class="full-img">
+    </section>
 
-      <h3>Vision System</h3>
+    <section>
+      <h2>Venturi Tube Propulsion</h2>
       <p>
-        Integrated a vision system for underwater navigation and task completion, giving
-        the operator reliable situational awareness.
+        Instead of standard open propellers, we developed a <strong>Venturi-based propulsion
+        system</strong>. Using the continuity equation and Bernoulli's principle, we reasoned that
+        decreasing cross-sectional area accelerates water flow and increases thrust.
       </p>
+      <p>
+        I tested four Venturi geometries against a bare-motor control by suspending each in water
+        and measuring thrust with a <strong>force sensor</strong>. Tube D produced the highest
+        average thrust at <strong>4.5 N</strong>, ~4.7% above the next best. The small margin between
+        the top designs revealed diminishing returns, so we finalized Tube D. Horizontal and vertical
+        tubes provided propulsion and depth control respectively.
+      </p>
+      <img src="images/rov-venturi.jpg" alt="Venturi tube thrust testing" class="full-img">
+    </section>
 
-      <h3>CFD &amp; Hydrodynamic Optimization</h3>
+    <section>
+      <h2>Stability &amp; Control</h2>
       <p>
-        Ran computational fluid dynamics simulations in OpenFOAM to analyze flow over the
-        hull, identify drag sources, and refine the chassis geometry for stability and speed.
+        A rear-mounted <strong>linear actuator</strong> dynamically shifts the center of mass, while
+        stabilizing fins and distributed wheel weights minimize roll for steady, controlled motion.
+        The onshore control system uses <strong>two custom PCBs, an Arduino, and an Xbox controller</strong>
+        for secure, responsive piloting.
       </p>
-      <img src="images/rov-cfd.jpg" alt="CFD flow analysis" class="full-img">
     </section>
 
     <section>
@@ -80,16 +110,20 @@
       <ul>
         <li>Ranked <strong>4th out of 9,000+ teams worldwide</strong></li>
         <li>Won the <strong>Innovation Award</strong> for best ROV design</li>
-        <li>Achieved stable, controllable underwater performance across all task runs</li>
+        <li>Measurable propulsion gains over standard configurations, validated by force-sensor testing</li>
+        <li>Built for just <strong>$124.78</strong> total</li>
       </ul>
     </section>
 
     <section>
       <h2>What I Learned</h2>
       <p>
-        This project deepened my understanding of fluid dynamics, iterative design, and the
-        gap between simulation and real-world performance. If I revisited it, I'd
-        [add your reflection here — a real "next iteration" idea impresses recruiters].
+        The biggest takeaway was <strong>data-driven decision-making</strong> — twice our test
+        results (Venturi Tube D and the hemispherical nose) contradicted our hypotheses, and trusting
+        the data produced a better vehicle. I also learned that optimizing subsystems in isolation
+        isn't enough: small changes in weight, buoyancy, and propulsion alignment had large effects on
+        overall stability, reinforcing a systems-level mindset. Next steps would be smoothing internal
+        Venturi surfaces to cut turbulence and adding sensor feedback for partial automation.
       </p>
     </section>
 
